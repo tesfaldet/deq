@@ -185,8 +185,8 @@ def broyden(f, x0, threshold, eps=1e-3, stop_mode="rel", ls=False, name="unknown
 
     # Fill everything up to the threshold length
     for _ in range(threshold+1-len(trace_dict[stop_mode])):
-        trace_dict[stop_mode].append(lowest_dict[stop_mode])
-        trace_dict[alternative_mode].append(lowest_dict[alternative_mode])
+        trace_dict[stop_mode].append(np.nan)
+        trace_dict[alternative_mode].append(np.nan)
 
     return {"result": lowest_xest,
             "lowest": lowest_dict[stop_mode],
@@ -234,7 +234,7 @@ def anderson(f, x0, m=6, lam=1e-4, threshold=50, eps=1e-3, stop_mode='rel', beta
                      'rel': rel_diff}
         trace_dict['abs'].append(abs_diff)
         trace_dict['rel'].append(rel_diff)
-        
+
         for mode in ['rel', 'abs']:
             if diff_dict[mode] < lowest_dict[mode]:
                 if mode == stop_mode: 
@@ -244,8 +244,8 @@ def anderson(f, x0, m=6, lam=1e-4, threshold=50, eps=1e-3, stop_mode='rel', beta
 
         if trace_dict[stop_mode][-1] < eps:
             for _ in range(threshold-1-k):
-                trace_dict[stop_mode].append(lowest_dict[stop_mode])
-                trace_dict[alternative_mode].append(lowest_dict[alternative_mode])
+                trace_dict[stop_mode].append(np.nan)
+                trace_dict[alternative_mode].append(np.nan)
             break
 
     out = {"result": lowest_xest,
